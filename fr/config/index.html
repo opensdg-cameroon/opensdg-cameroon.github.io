@@ -44,6 +44,8 @@ var opensdg = {
 
   language: 'fr',
 
+  language_numbers: 'fr',
+
   mapColors: {
     "default": [
         "#c4e1c6",
@@ -142,7 +144,7 @@ var translations = {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link res="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="">
-        <link rel="stylesheet" href="/assets/css/style.css?v=20251218131449">
+        <link rel="stylesheet" href="/assets/css/style.css?v=20251218133151">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
@@ -351,6 +353,11 @@ data-event-label="high"
                     }
                 }
             }
+        },
+        "config_form_library_src": {
+            "type": "string",
+            "title": "Configuration form library",
+            "description": "This optional setting controls the URL of the JavaScript library to use for configuration forms, such as the site config form and the indicator config form. Leave blank to default to the latest available code, but using a specific version is recommended. See here for the available versions: https://github.com/open-sdg/open-sdg-config-form#open-sdg-config-form"
         },
         "cookie_consent_form": {
             "type": "object",
@@ -939,6 +946,29 @@ data-event-label="high"
                 "type": "string",
                 "minLength": 1,
                 "title": "Language"
+            }
+        },
+        "languages_numbers": {
+            "type": "array",
+            "title": "Language code overrides to use when formatting numbers",
+            "description": "This setting can be used in the rare cases where browsers are not correctly formatting numbers for a particular language.",
+            "items": {
+                "type": "object",
+                "title": "Language override for numbers",
+                "properties": {
+                    "language": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "Language",
+                        "description": "The language code that you would like to override when formatting numbers."
+                    },
+                    "language_numbers": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "Language override for numbers",
+                        "description": "The language code that you would like use instead when formatting numbers."
+                    }
+                }
             }
         },
         "languages_public": {
@@ -1771,6 +1801,32 @@ data-event-label="high"
                 },
                 {
                     "type": "GroupWithAccordion",
+                    "label": "Languages numbers",
+                    "documentationKey": "languages_numbers",
+                    "elements": [
+                        {
+                            "type": "ListWithDetail",
+                            "scope": "#/properties/languages_numbers",
+                            "options": {
+                                "detail": {
+                                    "type": "VerticalLayout",
+                                    "elements": [
+                                        {
+                                            "type": "Control",
+                                            "scope": "#/properties/language"
+                                        },
+                                        {
+                                            "type": "Control",
+                                            "scope": "#/properties/language_numbers"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "GroupWithAccordion",
                     "label": "Languages public",
                     "documentationKey": "languages_public",
                     "elements": [
@@ -2475,6 +2531,17 @@ data-event-label="high"
                             "scope": "#/properties/site_config_form/properties/github_owner"
                         }
                     ]
+                },
+                {
+                    "type": "GroupWithAccordion",
+                    "label": "Configuration form library",
+                    "documentationKey": "config_form_library_src",
+                    "elements": [
+                        {
+                            "type": "Control",
+                            "scope": "#/properties/config_form_library_src"
+                        }
+                    ]
                 }
             ]
         },
@@ -2850,7 +2917,7 @@ data-event-label="high"
     ]
 }
 ;
-      opensdg.configForm.initialData = {"analytics":{"ua":"","gtag":"","gtm":"","ga_prod":""},"breadcrumbs":{"goal":[{"path":"/","label":"general.home"},{"path":"/goals","label":"general.goals"}],"indicator":[{"path":"/","label":"general.home"},{"path":"/goals","label":"general.goals"}],"post":[{"path":"/","label":"general.home"},{"path":"/news","label":"menu.updates"}]},"cookie_consent_form":{"enabled":false},"country":{"name":"Cameroon","adjective":"Cameroonian"},"create_goals":{"previous_next_links":false,"goal_content_heading":"","goals":[]},"create_indicators":{"previous_next_links":false},"create_pages":[{"filename":"","folder":"/goals","layout":"goals","title":"general.goals"},{"filename":"","folder":"/reporting-status","layout":"reportingstatus","title":"status.reporting_status"},{"filename":"","folder":"/search","layout":"search","title":"search.search"}],"custom_css":[],"custom_js":["/assets/js/custom.js"],"data_edit_url":"data","data_fields":{"units":"UNIT_MEASURE","series":"SERIES"},"date_formats":[],"disclaimer":{"phase":"","message":"","hidden":false},"email_contacts":{"questions":"carlos.lacgni@ins-cameroun.cm","suggestions":"carlos.lacgni@ins-cameroun.cm","functional":"carlos.lacgni@ins-cameroun.cm"},"empty_metadata_placeholder":"","empty_metadata_placeholder_sources":"","environment":"staging","footer_language_toggle":"none","footer_menu":[{"path":"/contact-us","translation_key":"menu.contact_us"},{"path":"https://twitter.com/MyTwitterAccount","translation_key":"general.twitter"},{"path":"https://facebook.com/MyFacebookAccount","translation_key":"general.facebook"},{"path":"/about/cookies-and-privacy/","translation_key":"menu.cookies"}],"frontpage_cards":[{"title":"frontpage.download_all","content":"","include":"components/download-all-data.html","button_label":"","button_link":"","rule_color":""},{"button_link":"https://www.ins-cameroun.cm","title":"Site","content":"https://www.ins-cameroun.cm"}],"frontpage_goals_grid":{"title":"frontpage.heading_short","description":"frontpage.instructions_shorter"},"frontpage_introduction_banner":{"title":"frontpage.intro_title","description":"frontpage.intro_body"},"goal_image_base":"https://open-sdg.org/sdg-translations/assets/img/goals","goal_image_extension":"","goals_page":{"title":"general.goals","description":"frontpage.instructions_shorter"},"graph_color_headline":"#004466","graph_color_headline_high_contrast":"#55a6e5","graph_color_list":[],"graph_color_number":0,"graph_color_set":"accessible","graph_title_from_series":true,"header_language_toggle":"dropdown","hide_empty_metadata":true,"hide_single_series":true,"hide_single_unit":true,"ignored_disaggregations":["SOURCE_DETAIL","COMMENT_OBS","TIME_DETAIL","NATURE","Progress"],"indicator_config_form":{"enabled":true,"dropdowns":[],"repository_link":"/tree/develop/indicator-config","translation_link":""},"indicator_data_form":{"enabled":true,"repository_link":"/tree/develop/data"},"indicator_metadata_form":{"enabled":true,"dropdowns":[],"repository_link":"/tree/develop/meta","translation_link":"","language":"","scopes":["national","global"],"exclude_fields":[],"translated":false},"indicator_tabs":{"tab_1":"","tab_2":"","tab_3":"","tab_4":""},"languages":["en","fr"],"languages_public":[],"logos":[],"map_layers":[{"subfolder":"national_level1","label":"Country","min_zoom":4,"max_zoom":10,"staticBorders":true},{"subfolder":"regions_1","label":"Regions1","min_zoom":4,"max_zoom":10,"staticBorders":true},{"subfolder":"regions_2","label":"Regions2","min_zoom":4,"max_zoom":10,"staticBorders":true},{"subfolder":"regions_3","label":"Regions3","min_zoom":4,"max_zoom":10,"staticBorders":true}],"map_options":{"disaggregation_controls":false,"minZoom":4,"maxZoom":10,"tileURL":"https://{s}.tile.jawg.io/{id}/{z}/{x}/{y}{r}.png?access-token={accessToken}","tileOptions":{"id":"ed56748f-29f9-465e-9269-c715674ee5ff","accessToken":"yrcGMvxCkRD6zZBF4x3mnAT3OGQJstAj7JvG1iy1UjEdy6JFeDfnzKvXrTK07CxF","attribution":"<a href=\"http://jawg.io\" title=\"Provider of map tiles\" target=\"_blank\">&copy; <b>Jawg</b>Maps</a> &copy; <a href=\"https://www.openstreetmap.org/copyright\" title=\"Provider of map visual data copywrite information\">OpenStreetMap</a> contributors | <a href=\"http://geoportal.statistics.gov.uk/\" title=\"The Open Geography portal from the Office for National Statistics\">ONS</a>"},"colorRange":"opensdg.mapColors.default","noValueColor":"#f0f0f0","styleNormal":{"weight":1,"opacity":1,"fillOpacity":0.7,"color":"#888888","dashArray":""},"styleHighlighted":{"weight":1,"opacity":1,"fillOpacity":0.7,"color":"#111111","dashArray":""},"styleStatic":{"weight":2,"opacity":1,"fillOpacity":0,"color":"#172d44","dashArray":55}},"menu":[{"path":"/","translation_key":"general.home","dropdown":[]},{"path":"/goals","translation_key":"general.goals","dropdown":[]},{"path":"/reporting-status","translation_key":"menu.reporting_status","dropdown":[]},{"path":"/news","translation_key":"menu.updates","dropdown":[]},{"path":"/faq","translation_key":"menu.faq","dropdown":[]},{"path":"/about","translation_key":"menu.about","dropdown":[]}],"meta_tags":[],"metadata_edit_url":"metadata","metadata_tabs":[{"scope":"national","title":"indicator.national_metadata","description":"indicator.national_metadata_blurb"},{"scope":"global","title":"indicator.global_metadata","description":"indicator.global_metadata_blurb"},{"scope":"sources","title":"indicator.sources","description":""}],"news":{"category_links":false},"observation_attributes":[],"progress_status":{"status_heading":"status.progress_status","status_help":"","status_types":[{"value":"not_available","label":"status.progress_not_available","alt":"status.progress_not_available"},{"value":"deterioration","label":"status.deterioration","image":"assets/img/progress/red-gauge.png","alt":"status.deterioration"},{"value":"limited_progress","label":"status.limited_progress","image":"assets/img/progress/orange-gauge.png","alt":"status.limited_progress"},{"value":"moderate_progress","label":"status.moderate_progress","image":"assets/img/progress/yellow-gauge.png","alt":"status.moderate_progress"},{"value":"substantial_progress","label":"status.substantial_progress","image":"assets/img/progress/green-gauge.png","alt":"status.substantial_progress"},{"value":"target_achieved","label":"status.target_achieved","image":"assets/img/progress/target-achieved-gauge.png","alt":"status.target_achieved"}]},"progressive_web_app":{"enabled":true,"name":"Indicators for the Sustainable Development Goals - Cameroon","short_name":"SDGs Cameroon","precaching":true},"proxy_indicators":{"label":"","description":""},"remote_data_prefix":"https://sdg-cameroon.github.io/data/","reporting_status":{"title":"status.reporting_status","description":"status.description","disaggregation_tabs":false,"status_types":[{"value":"notstarted","label":"status.no_data_available","hide_on_goal_pages":false},{"value":"complete","label":"status.reported_online","hide_on_goal_pages":false},{"value":"notapplicable","label":"status.not_applicable","hide_on_goal_pages":false}]},"repository_url_data":"https://github.com/SDG-Cameroon/data","repository_url_site":"https://github.com/SDG-Cameroon/site","search_index_boost":[],"search_index_extra_fields":[],"site_config_form":{"enabled":true,"dropdowns":[],"repository_link":"/tree/develop/_data","translation_link":""},"time_series_attributes":[{"field":"COMMENT_TS","label":"indicator.footnote"},{"field":"DATA_LAST_UPDATE","label":"metadata_fields.national_data_update_url"}],"x_axis_label":""};
+      opensdg.configForm.initialData = {"analytics":{"ua":"","gtag":"","gtm":"","ga_prod":""},"breadcrumbs":{"goal":[{"path":"/","label":"general.home"},{"path":"/goals","label":"general.goals"}],"indicator":[{"path":"/","label":"general.home"},{"path":"/goals","label":"general.goals"}],"post":[{"path":"/","label":"general.home"},{"path":"/news","label":"menu.updates"}]},"cookie_consent_form":{"enabled":false},"country":{"name":"Cameroon","adjective":"Cameroonian"},"create_goals":{"previous_next_links":false,"goal_content_heading":"","goals":[]},"create_indicators":{"previous_next_links":false},"create_pages":[{"filename":"","folder":"/goals","layout":"goals","title":"general.goals"},{"filename":"","folder":"/reporting-status","layout":"reportingstatus","title":"status.reporting_status"},{"filename":"","folder":"/search","layout":"search","title":"search.search"}],"custom_css":[],"custom_js":["/assets/js/custom.js"],"data_edit_url":"data","data_fields":{"units":"UNIT_MEASURE","series":"SERIES"},"date_formats":[],"disclaimer":{"phase":"","message":"","hidden":false},"email_contacts":{"questions":"carlos.lacgni@ins-cameroun.cm","suggestions":"carlos.lacgni@ins-cameroun.cm","functional":"carlos.lacgni@ins-cameroun.cm"},"empty_metadata_placeholder":"","empty_metadata_placeholder_sources":"","environment":"staging","footer_language_toggle":"none","footer_menu":[{"path":"/contact-us","translation_key":"menu.contact_us"},{"path":"https://twitter.com/MyTwitterAccount","translation_key":"general.twitter"},{"path":"https://facebook.com/MyFacebookAccount","translation_key":"general.facebook"},{"path":"/about/cookies-and-privacy/","translation_key":"menu.cookies"}],"frontpage_cards":[{"title":"frontpage.download_all","content":"","include":"components/download-all-data.html","button_label":"","button_link":"","rule_color":""},{"button_link":"https://www.ins-cameroun.cm","title":"INS site","button_label":"Read more","content":""}],"frontpage_goals_grid":{"title":"frontpage.heading_short","description":"frontpage.instructions_shorter"},"frontpage_introduction_banner":{"title":"frontpage.intro_title","description":"frontpage.intro_body"},"goal_image_base":"https://open-sdg.org/sdg-translations/assets/img/goals","goal_image_extension":"","goals_page":{"title":"general.goals","description":"frontpage.instructions_shorter"},"graph_color_headline":"#004466","graph_color_headline_high_contrast":"#55a6e5","graph_color_list":[],"graph_color_number":0,"graph_color_set":"accessible","graph_title_from_series":true,"header_language_toggle":"dropdown","hide_empty_metadata":true,"hide_single_series":true,"hide_single_unit":true,"ignored_disaggregations":["SOURCE_DETAIL","COMMENT_OBS","TIME_DETAIL","NATURE","Progress"],"indicator_config_form":{"enabled":true,"dropdowns":[],"repository_link":"/tree/develop/indicator-config","translation_link":""},"indicator_data_form":{"enabled":true,"repository_link":"/tree/develop/data"},"indicator_metadata_form":{"enabled":true,"dropdowns":[],"repository_link":"/tree/develop/meta","translation_link":"","language":"","scopes":["national","global"],"exclude_fields":[],"translated":false},"indicator_tabs":{"tab_1":"","tab_2":"","tab_3":"","tab_4":""},"languages":["en","fr"],"languages_public":[],"logos":[],"map_layers":[{"subfolder":"national_level1","label":"Country","min_zoom":4,"max_zoom":10,"staticBorders":true},{"subfolder":"regions_1","label":"Regions1","min_zoom":4,"max_zoom":10,"staticBorders":true},{"subfolder":"regions_2","label":"Regions2","min_zoom":4,"max_zoom":10,"staticBorders":true},{"subfolder":"regions_3","label":"Regions3","min_zoom":4,"max_zoom":10,"staticBorders":true}],"map_options":{"disaggregation_controls":false,"minZoom":4,"maxZoom":10,"tileURL":"https://{s}.tile.jawg.io/{id}/{z}/{x}/{y}{r}.png?access-token={accessToken}","tileOptions":{"id":"ed56748f-29f9-465e-9269-c715674ee5ff","accessToken":"yrcGMvxCkRD6zZBF4x3mnAT3OGQJstAj7JvG1iy1UjEdy6JFeDfnzKvXrTK07CxF","attribution":"<a href=\"http://jawg.io\" title=\"Provider of map tiles\" target=\"_blank\">&copy; <b>Jawg</b>Maps</a> &copy; <a href=\"https://www.openstreetmap.org/copyright\" title=\"Provider of map visual data copywrite information\">OpenStreetMap</a> contributors | <a href=\"http://geoportal.statistics.gov.uk/\" title=\"The Open Geography portal from the Office for National Statistics\">ONS</a>"},"colorRange":"opensdg.mapColors.default","noValueColor":"#f0f0f0","styleNormal":{"weight":1,"opacity":1,"fillOpacity":0.7,"color":"#888888","dashArray":""},"styleHighlighted":{"weight":1,"opacity":1,"fillOpacity":0.7,"color":"#111111","dashArray":""},"styleStatic":{"weight":2,"opacity":1,"fillOpacity":0,"color":"#172d44","dashArray":55}},"menu":[{"path":"/","translation_key":"general.home","dropdown":[]},{"path":"/goals","translation_key":"general.goals","dropdown":[]},{"path":"/reporting-status","translation_key":"menu.reporting_status","dropdown":[]},{"path":"/news","translation_key":"menu.updates","dropdown":[]},{"path":"/faq","translation_key":"menu.faq","dropdown":[]},{"path":"/about","translation_key":"menu.about","dropdown":[]}],"meta_tags":[],"metadata_edit_url":"metadata","metadata_tabs":[{"scope":"national","title":"indicator.national_metadata","description":"indicator.national_metadata_blurb"},{"scope":"global","title":"indicator.global_metadata","description":"indicator.global_metadata_blurb"},{"scope":"sources","title":"indicator.sources","description":""}],"news":{"category_links":false},"observation_attributes":[],"progress_status":{"status_heading":"status.progress_status","status_help":"","status_types":[{"value":"not_available","label":"status.progress_not_available","alt":"status.progress_not_available"},{"value":"deterioration","label":"status.deterioration","image":"assets/img/progress/red-gauge.png","alt":"status.deterioration"},{"value":"limited_progress","label":"status.limited_progress","image":"assets/img/progress/orange-gauge.png","alt":"status.limited_progress"},{"value":"moderate_progress","label":"status.moderate_progress","image":"assets/img/progress/yellow-gauge.png","alt":"status.moderate_progress"},{"value":"substantial_progress","label":"status.substantial_progress","image":"assets/img/progress/green-gauge.png","alt":"status.substantial_progress"},{"value":"target_achieved","label":"status.target_achieved","image":"assets/img/progress/target-achieved-gauge.png","alt":"status.target_achieved"}]},"progressive_web_app":{"enabled":true,"name":"Indicators for the Sustainable Development Goals - Cameroon","short_name":"SDGs Cameroon","precaching":true},"proxy_indicators":{"label":"","description":""},"remote_data_prefix":"https://sdg-cameroon.github.io/data/","reporting_status":{"title":"status.reporting_status","description":"status.description","disaggregation_tabs":false,"status_types":[{"value":"notstarted","label":"status.no_data_available","hide_on_goal_pages":false},{"value":"complete","label":"status.reported_online","hide_on_goal_pages":false},{"value":"notapplicable","label":"status.not_applicable","hide_on_goal_pages":false}]},"repository_url_data":"https://github.com/SDG-Cameroon/data","repository_url_site":"https://github.com/SDG-Cameroon/site","search_index_boost":[],"search_index_extra_fields":[],"site_config_form":{"enabled":true,"dropdowns":[],"repository_link":"/tree/develop/_data","translation_link":""},"time_series_attributes":[{"field":"COMMENT_TS","label":"indicator.footnote"},{"field":"DATA_LAST_UPDATE","label":"metadata_fields.national_data_update_url"}],"x_axis_label":""};
       opensdg.configForm.repoUrl = "https://github.com/SDG-Cameroon/site";
       opensdg.configForm.configFolder = null;
       opensdg.configForm.githubClientId = null;
@@ -2859,6 +2926,9 @@ data-event-label="high"
       opensdg.configForm.githubOwner = null;
     
   </script>
+  
+  
+  
   <script src="https://open-sdg.org/open-sdg-config-form/bundle.js"></script>
 </div>
 <footer role="contentinfo">
@@ -2941,12 +3011,12 @@ ga('send', 'pageview');
 <script>translations['search'] = translations['search'] || {};
     translations['search']['search'] = 'Chercher';</script>
 
-<script src='/assets/js/sdg.js?v=20251218131449'></script>
+<script src='/assets/js/sdg.js?v=20251218133151'></script>
 
 
     
     
-    <script src="/assets/js/custom.js?v=20251218131449"></script><script>
+    <script src="/assets/js/custom.js?v=20251218133151"></script><script>
     new indicatorInit();
     new accessibilitySwitcher();
 </script>
